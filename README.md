@@ -4,7 +4,7 @@ Code metrics for [fledge](https://github.com/CorvidLabs/fledge) — LOC, churn, 
 
 Lived in fledge core through v0.14 as ~600 LOC of file-walking and per-language counting. Moved to this plugin in v0.15 because (1) it overlapped with battle-tested tools like `tokei`/`scc` and (2) it never composed with specs/AI/lanes — it was a standalone read tool.
 
-This plugin is a thin shell over `tokei` and `git`. Smaller surface, better correctness.
+Rewritten in Rust (v0.2.0+). The previous version shelled out to a separately-installed `tokei` binary; this one links `tokei` as a library so the only build-time requirement is a Rust toolchain. `git` is still required at runtime for `--churn`.
 
 ## Install
 
@@ -12,13 +12,23 @@ This plugin is a thin shell over `tokei` and `git`. Smaller surface, better corr
 fledge plugins install CorvidLabs/fledge-plugin-metrics
 ```
 
-Requires [`tokei`](https://github.com/XAMPPRocky/tokei) for the LOC summary (`cargo install tokei`).
+`fledge plugins install` auto-detects `Cargo.toml` and runs `cargo build --release` for you — no separate `tokei` install needed.
 
 ## Commands
 
 ### `fledge metrics` (default)
 
-LOC summary by language via `tokei`.
+LOC summary by language. Output is a fixed-width table sorted by code lines descending:
+
+```
+LANGUAGE                FILES      LINES       CODE   COMMENTS     BLANKS
+------------------------------------------------------------------------
+Rust                       42      18204      16880        420        904
+TOML                        5        128        118          0         10
+Markdown                    8        612          0        510        102
+------------------------------------------------------------------------
+TOTAL                      55      18944      16998        930       1016
+```
 
 ### `fledge metrics --churn [-l <N>]`
 
@@ -36,11 +46,31 @@ src/work.rs                                                  18
 
 ### `fledge metrics --tests`
 
-Test/source file ratio by filename heuristic (`*_test.rs`, `*.test.ts`, `*Test.java`, etc.).
+Test/source file ratio by filename heuristic (`*_test.rs`, `*.test.ts`, `*Test.java`, etc.). Walks with `.gitignore` awareness — `node_modules/`, `target/`, etc. are skipped automatically.
 
 ### `--json` everywhere
 
-Each subcommand has a stable JSON shape. `--json` on `--churn` emits an array of `{path, commits}` objects; `--json` on `--tests` emits `{test_files, source_files, ratio}`; the default `tokei` summary forwards `tokei --output json`.
+Stable, plugin-owned JSON shapes (no longer pass-through from `tokei --output json`):
+
+`fledge metrics --json`:
+```json
+{
+  "languages": [
+    {"name": "Rust", "files": 42, "lines": 18204, "code": 16880, "comments": 420, "blanks": 904}
+  ],
+  "totals": {"files": 55, "lines": 18944, "code": 16998, "comments": 930, "blanks": 1016}
+}
+```
+
+`fledge metrics --churn --json`:
+```json
+[{"path": "src/lanes.rs", "commits": 47}]
+```
+
+`fledge metrics --tests --json`:
+```json
+{"test_files": 12, "source_files": 42, "ratio": 0.286}
+```
 
 ## License
 
