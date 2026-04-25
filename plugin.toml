@@ -1,0 +1,11 @@
+[plugin]
+name = "fledge-plugin-metrics"
+version = "0.1.0"
+description = "Code metrics for fledge — LOC, churn, test ratio. Wraps tokei + git."
+author = "0xLeif"
+license = "MIT"
+
+[[commands]]
+name = "metrics"
+description = "Project code metrics (LOC, churn, test ratio)"
+binary = "bin/fledge-metrics"

@@ -1,0 +1,111 @@
+#!/usr/bin/env bash
+# fledge-metrics — code metrics for the current project.
+# LOC via tokei (if installed), churn via git, test ratio by filename heuristic.
+#
+# Replaces the pre-v0.15 in-core `fledge metrics` command. Thinner — defers
+# to tokei for the hard parts (multi-language LOC counting) instead of
+# re-implementing it.
+set -euo pipefail
+
+CHURN=false
+TESTS=false
+LIMIT=20
+JSON=false
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --churn)   CHURN=true; shift;;
+    --tests)   TESTS=true; shift;;
+    -l|--limit) LIMIT="${2:-20}"; shift 2;;
+    --json)    JSON=true; shift;;
+    -h|--help)
+      cat <<'EOF'
+fledge metrics — code metrics for the current project
+
+USAGE:
+  fledge metrics [OPTIONS]
+
+OPTIONS:
+  --churn        Show file churn from git history (commits per file)
+  --tests        Show test/source ratio (filename heuristic)
+  -l, --limit N  Max entries for --churn (default: 20)
+  --json         Output as JSON
+  -h, --help     Show this help
+
+DEFAULT (no flag): summary of LOC by language, via `tokei`.
+
+DEPENDENCIES:
+  tokei  for the LOC summary  (https://github.com/XAMPPRocky/tokei)
+  git    for --churn
+EOF
+      exit 0
+      ;;
+    *) echo "fledge-metrics: unknown argument '$1'" >&2; exit 64;;
+  esac
+done
+
+if [ "$CHURN" = "true" ]; then
+  if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    echo "fledge-metrics: --churn requires a git repository." >&2
+    exit 65
+  fi
+  if [ "$JSON" = "true" ]; then
+    git log --name-only --pretty=format: \
+      | grep -v '^$' \
+      | sort | uniq -c | sort -rn | head -n "$LIMIT" \
+      | awk 'BEGIN{print "["} NR>1{print ","} {printf "  {\"path\": \"%s\", \"commits\": %d}", $2, $1} END{print "\n]"}'
+  else
+    printf '%-60s %s\n' "FILE" "COMMITS"
+    git log --name-only --pretty=format: \
+      | grep -v '^$' \
+      | sort | uniq -c | sort -rn | head -n "$LIMIT" \
+      | awk '{printf "%-60s %d\n", $2, $1}'
+  fi
+  exit 0
+fi
+
+if [ "$TESTS" = "true" ]; then
+  TESTS_COUNT=$(find . -type f \( \
+       -name '*_test.rs' -o -name '*.test.ts' -o -name '*.test.tsx' \
+    -o -name '*.test.js' -o -name '*.test.jsx' -o -name '*.spec.ts' \
+    -o -name '*.spec.js' -o -name '*Test.java' -o -name '*Tests.swift' \
+    -o -name 'test_*.py' -o -name '*_test.py' \
+    \) -not -path './node_modules/*' -not -path './target/*' -not -path './.git/*' 2>/dev/null | wc -l | tr -d ' ')
+  SOURCE_COUNT=$(find . -type f \( \
+       -name '*.rs' -o -name '*.ts' -o -name '*.tsx' -o -name '*.js' \
+    -o -name '*.jsx' -o -name '*.py' -o -name '*.swift' -o -name '*.kt' \
+    -o -name '*.java' -o -name '*.go' -o -name '*.rb' \
+    \) -not -path './node_modules/*' -not -path './target/*' -not -path './.git/*' 2>/dev/null | wc -l | tr -d ' ')
+  if [ "$SOURCE_COUNT" -gt 0 ]; then
+    RATIO=$(awk "BEGIN { printf \"%.3f\", $TESTS_COUNT / $SOURCE_COUNT }")
+  else
+    RATIO="0"
+  fi
+  if [ "$JSON" = "true" ]; then
+    printf '{"test_files": %s, "source_files": %s, "ratio": %s}\n' "$TESTS_COUNT" "$SOURCE_COUNT" "$RATIO"
+  else
+    printf 'Test files:    %s\n' "$TESTS_COUNT"
+    printf 'Source files:  %s\n' "$SOURCE_COUNT"
+    printf 'Ratio:         %s\n' "$RATIO"
+  fi
+  exit 0
+fi
+
+# Default: LOC summary via tokei
+if ! command -v tokei >/dev/null 2>&1; then
+  cat <<'EOF' >&2
+fledge-metrics: tokei is not installed.
+Install it: https://github.com/XAMPPRocky/tokei
+
+  cargo install tokei
+  brew install tokei
+  pacman -S tokei
+EOF
+  exit 127
+fi
+
+if [ "$JSON" = "true" ]; then
+  tokei --output json
+else
+  tokei
+fi
