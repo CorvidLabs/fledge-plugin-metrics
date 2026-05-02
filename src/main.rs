@@ -218,7 +218,7 @@ fn run_tests(as_json: bool) -> Result<()> {
     let mut test_files = 0usize;
     let mut source_files = 0usize;
 
-    let walker = WalkBuilder::new(".").hidden(false).build();
+    let walker = WalkBuilder::new(".").hidden(true).build();
     for entry in walker.flatten() {
         let path = entry.path();
         if !entry.file_type().is_some_and(|ft| ft.is_file()) {
@@ -233,12 +233,13 @@ fn run_tests(as_json: bool) -> Result<()> {
         if !is_source {
             continue;
         }
-        source_files += 1;
 
         let is_test = TEST_PATTERNS.iter().any(|p| file_name.ends_with(p))
             || TEST_PREFIX_PATTERNS.iter().any(|p| file_name.starts_with(p));
         if is_test {
             test_files += 1;
+        } else {
+            source_files += 1;
         }
     }
 
