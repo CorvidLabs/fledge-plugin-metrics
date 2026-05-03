@@ -107,7 +107,10 @@ fn run_loc(as_json: bool) -> Result<()> {
     };
 
     if as_json {
-        let report = LocReport { languages: entries, totals };
+        let report = LocReport {
+            languages: entries,
+            totals,
+        };
         println!("{}", serde_json::to_string_pretty(&report)?);
         return Ok(());
     }
@@ -224,7 +227,9 @@ fn run_tests(as_json: bool) -> Result<()> {
         if !entry.file_type().is_some_and(|ft| ft.is_file()) {
             continue;
         }
-        let Some(file_name) = path.file_name().and_then(|n| n.to_str()) else { continue };
+        let Some(file_name) = path.file_name().and_then(|n| n.to_str()) else {
+            continue;
+        };
 
         let is_source = path
             .extension()
@@ -235,7 +240,9 @@ fn run_tests(as_json: bool) -> Result<()> {
         }
 
         let is_test = TEST_PATTERNS.iter().any(|p| file_name.ends_with(p))
-            || TEST_PREFIX_PATTERNS.iter().any(|p| file_name.starts_with(p));
+            || TEST_PREFIX_PATTERNS
+                .iter()
+                .any(|p| file_name.starts_with(p));
         if is_test {
             test_files += 1;
         } else {
@@ -250,7 +257,11 @@ fn run_tests(as_json: bool) -> Result<()> {
     };
 
     if as_json {
-        let report = TestsReport { test_files, source_files, ratio };
+        let report = TestsReport {
+            test_files,
+            source_files,
+            ratio,
+        };
         println!("{}", serde_json::to_string_pretty(&report)?);
         return Ok(());
     }
