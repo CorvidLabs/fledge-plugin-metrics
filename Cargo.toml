@@ -1,6 +1,6 @@
 [package]
 name = "fledge-plugin-metrics"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2021"
 rust-version = "1.85"
 description = "Code metrics for fledge — LOC, churn, test ratio. Uses tokei + git."

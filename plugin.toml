@@ -1,6 +1,6 @@
 [plugin]
 name = "fledge-plugin-metrics"
-version = "0.2.0"
+version = "0.2.1"
 description = "Code metrics for fledge — LOC, churn, test ratio. Built in Rust."
 author = "0xLeif"
 license = "MIT"
