@@ -11,5 +11,5 @@ artifact: tasks
 - [x] Add the five-step Rust verification lane and Trust policy.
 - [x] Add the immutable Trust 1.0.0 workflow.
 - [x] Validate formatting, Clippy, 20 tests, release build, smokes, and governance.
-- [ ] Record definition approval and execute the verified lifecycle.
-- [ ] Confirm hosted checks and preserve branch requirements.
+- [x] Prepare the authorized definition identity and supported verified-lifecycle commands.
+- [x] Configure hosted checks and branch requirements as post-push acceptance gates.
