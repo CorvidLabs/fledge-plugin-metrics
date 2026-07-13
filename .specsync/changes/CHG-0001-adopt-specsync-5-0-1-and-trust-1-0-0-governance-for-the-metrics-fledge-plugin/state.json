@@ -6,9 +6,10 @@
   "description": "Adopt SpecSync 5.0.1 and Trust 1.0.0 governance for the Metrics Fledge plugin",
   "kind": "migration",
   "state": "accepted",
+  "canonical_applied": true,
   "base_commit": "3ea707b04f5206a2d8432e40128c89d323e40987",
   "created_at": 1783881310,
-  "updated_at": 1783955441,
+  "updated_at": 1783986773,
   "affected_specs": [
     "metrics"
   ],

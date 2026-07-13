@@ -13,6 +13,51 @@
       "timestamp": 1783955441,
       "digest": "f840ebcdc4ad22e25facebc2d1f4bfe07e56f95cd89ae275aaee6532f3277a38",
       "note": "Closing approval recorded after successful committed-head native verification with exact requirement evidence."
+    },
+    {
+      "gate": "acceptance",
+      "actor": "user:0xLeif",
+      "timestamp": 1783986773,
+      "digest": "8eb85584bad26bf114947a38ad213a1545f2210cf8f8076f6d5665bef035f9c2",
+      "note": "Closing approval refresh for the unchanged migration definition after exact-head native verification and accepted review corrections."
+    }
+  ],
+  "reopenings": [
+    {
+      "schema_version": 1,
+      "change_id": "CHG-0001-adopt-specsync-5-0-1-and-trust-1-0-0-governance-for-the-metrics-fledge-plugin",
+      "actor": "user:0xLeif",
+      "reason": "Refresh unchanged migration evidence after the separately accepted review-correction change",
+      "timestamp": 1783986771,
+      "from_state": "accepted",
+      "to_state": "verifying",
+      "superseded_approval": {
+        "gate": "acceptance",
+        "actor": "user:0xLeif",
+        "timestamp": 1783955441,
+        "digest": "f840ebcdc4ad22e25facebc2d1f4bfe07e56f95cd89ae275aaee6532f3277a38",
+        "note": "Closing approval recorded after successful committed-head native verification with exact requirement evidence."
+      },
+      "prior_verification": {
+        "timestamp": 1783955375,
+        "commit": "20e7cb8fbbf384bf79e145729928ac2de37aaf84",
+        "contract_digest": "be360ad58cb0bf0b5d7b23809482c6a1c47fa89b8ab3a4a0ee9b16c7df9bc4ad",
+        "workspace_digest": "9eecd5b20f99f6b8c7339b19fcb9f85ae3f67c1391ba66afcd7a571a0804b1d5",
+        "acceptance_input_digest": "6afc3f817527679647263ebc9fc690fefb53d1162878cd8e23e592345ed8776f",
+        "passed": true,
+        "commands": [
+          {
+            "command": "fledge lanes run verify",
+            "success": true,
+            "exit_code": 0
+          }
+        ],
+        "requirement_ids": [
+          "REQ-metrics-001"
+        ]
+      },
+      "stale_acceptance_input_digest": "6afc3f817527679647263ebc9fc690fefb53d1162878cd8e23e592345ed8776f",
+      "current_acceptance_input_digest": "24e53b765fdfcd27fc89e83b8153298d994ae6fea4d313aaac8a9beacf23a399"
     }
   ]
 }
