@@ -12,6 +12,9 @@ spec: metrics.spec.md
 
 The default report SHALL count files, lines, code, comments, and blanks per discovered language and in total.
 
+Acceptance Criteria
+- Report integration tests validate deterministic file and line totals.
+
 ### REQ-metrics-002
 
 Churn SHALL count Git-history occurrences per path, order ties deterministically, and honor the configured result limit.

@@ -1,6 +1,6 @@
 ---
 module: metrics
-version: 1
+version: 2
 status: active
 files:
   - src/main.rs
@@ -74,3 +74,4 @@ Then the plugin returns deterministic human-readable or JSON results for the sel
 | Version | Date | Changes |
 |---------|------|---------|
 | 1 | 2026-07-12 | Document existing LOC, churn, and test-ratio behavior for SpecSync 5 adoption. |
+| 2026-07-13 | CHG-0001-adopt-specsync-5-0-1-and-trust-1-0-0-governance-for-the-metrics-fledge-plugin: Adopt SpecSync 5.0.1 and Trust 1.0.0 governance for the Metrics Fledge plugin |

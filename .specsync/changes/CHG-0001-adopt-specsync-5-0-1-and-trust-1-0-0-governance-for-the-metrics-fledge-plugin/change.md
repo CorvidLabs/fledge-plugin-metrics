@@ -1,6 +1,6 @@
 ---
 id: CHG-0001-adopt-specsync-5-0-1-and-trust-1-0-0-governance-for-the-metrics-fledge-plugin
-state: implementing
+state: accepted
 type: migration
 base_commit: 3ea707b04f5206a2d8432e40128c89d323e40987
 ---
