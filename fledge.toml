@@ -1,0 +1,11 @@
+# fledge.toml — project task definitions
+[tasks]
+fmt = "cargo fmt --check"
+lint = "cargo clippy -- -D warnings"
+test = "cargo test"
+build = "cargo build --release"
+smoke = "cargo run --release -- --help && cargo run --release -- --json"
+
+[lanes.verify]
+description = "Format, lint, test, build, and smoke-test the metrics plugin"
+steps = ["fmt", "lint", "test", "build", "smoke"]

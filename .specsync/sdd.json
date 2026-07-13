@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "enabled": true,
+  "require_change_for_meaningful_files": true,
+  "meaningful_paths": [
+    "src/",
+    ".github/",
+    ".claude/",
+    ".codex/",
+    ".cursor/",
+    ".gemini/",
+    "docs/",
+    "README.md",
+    "CHANGELOG.md",
+    "AGENTS.md",
+    ".augur.toml",
+    ".attest.json",
+    "Cargo.toml",
+    "Cargo.lock",
+    "plugin.toml",
+    "fledge.toml",
+    ".trust.toml",
+    ".specsync/sdd.json",
+    ".specsync/config.toml",
+    ".specsync/version"
+  ],
+  "ignored_paths": [
+    ".specsync/",
+    "specs/"
+  ],
+  "verification_commands": [
+    "fledge lanes run verify"
+  ],
+  "custom_artifacts": {},
+  "principles_file": null
+}

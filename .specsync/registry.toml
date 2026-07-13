@@ -1,0 +1,5 @@
+[registry]
+name = "fledge-plugin-metrics-trust-wave5"
+
+[specs]
+metrics = "specs/metrics/metrics.spec.md"

@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "id": "CHG-0002-correct-metrics-rollout-review-findings-and-requirement-evidence",
+  "slug": "correct-metrics-rollout-review-findings-and-requirement-evidence",
+  "title": "Correct Metrics rollout review findings and requirement evidence",
+  "description": "Correct Metrics rollout review findings and requirement evidence",
+  "kind": "feature",
+  "state": "accepted",
+  "canonical_applied": true,
+  "base_commit": "6e3fbb985f23c9218a7c4202b092a6b1019f6ce1",
+  "created_at": 1783986677,
+  "updated_at": 1783986757,
+  "affected_specs": [
+    "metrics"
+  ],
+  "affected_paths": [
+    ".claude/",
+    ".codex/",
+    ".cursor/",
+    ".gemini/",
+    ".attest.json",
+    ".augur.toml",
+    "AGENTS.md",
+    ".github/",
+    "README.md",
+    "docs/",
+    "specs/metrics/requirements.md",
+    ".specsync/changes/",
+    ".specsync/sdd.json"
+  ],
+  "no_spec_change": false,
+  "no_spec_change_rationale": null,
+  "acceptance_criteria": [
+    "Generated agent commands preserve user arguments and full free-text descriptions; governance and public documentation paths are lifecycle-gated; REQ-metrics-001 states only the actual tokei smoke and aggregation evidence; exact-head native verification and real 100% coverage pass"
+  ],
+  "selected_artifacts": [
+    "context",
+    "requirements",
+    "plan",
+    "tasks",
+    "testing",
+    "docs"
+  ],
+  "dependencies": [],
+  "answers": {
+    "architecture_risk": "no",
+    "public_contract": "yes"
+  }
+}
