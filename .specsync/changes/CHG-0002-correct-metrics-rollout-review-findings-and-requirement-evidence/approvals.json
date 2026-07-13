@@ -6,6 +6,13 @@
       "timestamp": 1783986746,
       "digest": "9e34c7478ae397a430290fb2b43b203a40c40d12796f22530f44076e96605397",
       "note": "Approved the audited migration-only corrections: truthful LOC evidence, complete governance path coverage, and generated agent input preservation."
+    },
+    {
+      "gate": "acceptance",
+      "actor": "user:0xLeif",
+      "timestamp": 1783986757,
+      "digest": "e0692b732b4ca75ed3556f5ca86fe6077510230510866bafb85f76f13ad1d789",
+      "note": "Closing approval after exact-head native verification passed with truthful REQ-metrics-001 evidence and real 100% source coverage."
     }
   ],
   "reopenings": []

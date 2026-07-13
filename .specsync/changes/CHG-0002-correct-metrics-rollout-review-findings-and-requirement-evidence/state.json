@@ -5,10 +5,11 @@
   "title": "Correct Metrics rollout review findings and requirement evidence",
   "description": "Correct Metrics rollout review findings and requirement evidence",
   "kind": "feature",
-  "state": "implementing",
+  "state": "accepted",
+  "canonical_applied": true,
   "base_commit": "6e3fbb985f23c9218a7c4202b092a6b1019f6ce1",
   "created_at": 1783986677,
-  "updated_at": 1783986746,
+  "updated_at": 1783986757,
   "affected_specs": [
     "metrics"
   ],

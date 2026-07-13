@@ -1,6 +1,6 @@
 ---
 id: CHG-0002-correct-metrics-rollout-review-findings-and-requirement-evidence
-state: implementing
+state: accepted
 type: feature
 base_commit: 6e3fbb985f23c9218a7c4202b092a6b1019f6ce1
 ---
