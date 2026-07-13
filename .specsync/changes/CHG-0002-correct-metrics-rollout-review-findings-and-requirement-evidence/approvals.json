@@ -1,0 +1,12 @@
+{
+  "approvals": [
+    {
+      "gate": "definition",
+      "actor": "user:0xLeif",
+      "timestamp": 1783986746,
+      "digest": "9e34c7478ae397a430290fb2b43b203a40c40d12796f22530f44076e96605397",
+      "note": "Approved the audited migration-only corrections: truthful LOC evidence, complete governance path coverage, and generated agent input preservation."
+    }
+  ],
+  "reopenings": []
+}

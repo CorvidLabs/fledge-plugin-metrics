@@ -13,7 +13,9 @@ spec: metrics.spec.md
 The default report SHALL count files, lines, code, comments, and blanks per discovered language and in total.
 
 Acceptance Criteria
-- Report integration tests validate deterministic file and line totals.
+
+- The native smoke executes the live tokei-backed JSON report successfully.
+- Unit tests validate total aggregation and deterministic language ordering over constructed language entries.
 
 ### REQ-metrics-002
 

@@ -7,12 +7,12 @@ Create a new spec-sync module spec.
 
 Arguments: `$ARGUMENTS`
 
-1. Parse the arguments above: the first whitespace-separated token is the
-   module name. If the arguments also contain `--minimal` (in any position),
-   remove it and remember that minimal mode was requested.
-2. Look at whatever text remains. It will be one of:
-   - **A bare module name** — a short identifier like `auth-service` or
-     `billing`. Use it as-is.
+1. Remove `--minimal` if present and remember that minimal mode was requested.
+   Preserve the complete remaining argument string; do not truncate it to its
+   first whitespace-separated token.
+2. Classify the complete remaining string as one of:
+   - **A bare module name** — a single kebab-case identifier like
+     `auth-service` or `billing`. Use it as-is.
    - **A free-text feature description** — a sentence or phrase describing
      what to build, e.g. `"I want a feature that lets users export their
      data as CSV"`. In this case, invent a short, kebab-case module name that
